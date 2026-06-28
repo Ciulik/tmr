@@ -1,0 +1,10 @@
+# Medii virtuale și cache
+.venv/
+venv/
+__pycache__/
+
+# Rapoarte generate (nu vrem să poluăm Git-ul cu știrile de zi cu zi)
+reports/
+
+# Fișiere de sistem
+.DS_Store

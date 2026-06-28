@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Financial Times",
+    "url": "https://www.ft.com/?format=rss",
+    "topic": "Financial",
+    "weight": 1.5
+  },
+  {
+    "name": "Hacker News",
+    "url": "https://hnrss.org/frontpage",
+    "topic": "Technology",
+    "weight": 1.2
+  },
+  {
+    "name": "ScienceDaily Health",
+    "url": "https://rss.sciencedaily.com/health_medicine.xml",
+    "topic": "Health",
+    "weight": 1.0
+  },
+  {
+    "name": "Foreign Policy",
+    "url": "https://foreignpolicy.com/feed/",
+    "topic": "Geopolitic",
+    "weight": 1.2
+  }
+]
