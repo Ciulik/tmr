@@ -2,24 +2,27 @@ import ollama
 import os
 from datetime import datetime
 
-def generate_report(articles: list):
+def generate_report(events: list):
     # Guard clause: never generate an empty report if ingestion failed 
-    if len(articles) == 0:
-        print("No articles fetched. Skipping report generation.")
+    if len(events) == 0:
+        print("No events fetched. Skipping report generation.")
         return
 
+    max_events = 25
+    events_to_process = events[:max_events]
+    
     # Step 5 of the pipeline: Prompt construction 
-    prompt = f"Summarize these {len(articles)} articles into a daily briefing. Categorize them by topic:\n\n"
-    for a in articles:
-        title = a.get("title", "No Title")
-        summary = a.get("summary", "No Summary")
-        prompt += f"- {title} ({a.get('_source')}): {summary}\n"
+    prompt = f"Summarize these {len(events)} major events into a daily briefing:\n\n"
+    for event in events:
+        prompt += f"## {event['primary_headline']}\n"
+        prompt += f"Reported by: {', '.join(event['source_links'])}\n"
+        prompt += f"Facts: {event['combined_summary']}\n\n"
 
     print("Generating summary via Ollama...")
     
     # Step 6 of the pipeline: ollama.chat() 
     response = ollama.chat(model="llama3", messages=[
-        {"role": "system", "content": "You are a personal assistant who loves Data Science, Jarvis from Tony Stark. Provide a clean, Markdown-formatted news summary."},
+        {"role": "system", "content": "You are Jarvis. You must strictly format the daily briefing using ONLY these headers: # Financial, # Technology, # Health, and # Geopolitics. If there is no news for a category, write 'No updates today'."},
         {"role": "user", "content": prompt}
     ])
     
